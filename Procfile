@@ -1,0 +1,1 @@
+web: gunicorn boardapp.wsgi --log-file -

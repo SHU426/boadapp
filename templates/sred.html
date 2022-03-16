@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block customcss %}
+<link href="{% static 'style.css' %}" rel="stylesheet">
+{% endblock customcss %}
+
+<body>
+  {% block header %}
+  <div class="alert alert-secondary" role="alert">
+    <h3 class="alert-heading">レアテック掲示板</h3>
+    <div class="text-end">
+      <a href="{% url 'create' %}" type="button" class="btn btn-success">掲示板を作成</a>
+      <a href="{% url 'logout' %}" type="button" class="btn btn-outline-dark">ログアウト</a>
+    </div>
+  </div>
+  {% endblock header %}
+
+  {% block content %}
+  <div class="container">
+    <div class="row align-items-center">
+      {% for item in object_list %}
+      <div class="alert alert-secondary" role="alert">
+        <div class="col">
+          <p>タイトル: <a href="{% url 'detail' item.pk %}" class="btn btn-primary">{{ item.title }}</a></p>
+          <p>詳細:{{ item.memo }}</p>
+          <p>投稿者:{{ item.author }}</p>
+
+          {% if item.author == user.username %}
+          <div class="text-end">
+            <a href="{% url 'delete' item.pk %}" type="button" class="btn btn-danger">掲示板を削除</a>
+          </div>
+          {% endif %}
+        </div>
+
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+
+
+
+
+  {% endblock content %}
+</body>

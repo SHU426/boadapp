@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block customcss %}
+
+{% endblock customcss %}
+<body>
+{% block header %}
+<div class="alert alert-secondary mb-0" role="alert">
+    <h3 class="alert-heading">レアテック掲示板</h3>
+    <div class="text-end">
+        <a href=" {% url 'sred' %}" type="button" class="btn btn-success">掲示板一覧に戻る</a>
+        <a href="{% url 'logout' %}" type="button" class="btn btn-outline-dark">ログアウト</a>
+    </div>
+</div>
+    <div class="text-center msg-title-wrap">
+        <div class="alert alert-info" role="alert">
+        <h1 class="p-3 mb-5 msg-thread-title">掲示板タイトル:<bold class="text-primary">{{sredmodel.title}}</bold></h1>
+        <p>掲示板作成者:{{sredmodel.author}}</p>
+        <p>詳細:{{sredmodel.memo}}</p>
+    </div>
+  
+    </div>
+
+{% endblock header %}
+</body>
+{% block content %}
+
+
+
+
+
+
+
+
+<div class="container">
+    <div class="u-height-500 u-overflow-y">
+        {% for msg in sredmodel.sred_msg_post_set.all%}
+        <div class="msg-wrap d-flex p-1 border mb-2 js-msg-wrap">
+            <div class="msg-box-wrap border w-100">
+                <span class="db-get-date d-block text-center mb-3">投稿日:{{msg.create_at}}</span>
+                <p class="text-center msg-comment js-set-value h2 mb-3"> {{msg.msg_detail}} </p>
+                <p class="text-center msg-comment js-set-value mb-0"> 投稿者:{{msg.msg_author}} </p>
+                {% if msg.msg_author == user.username %}
+                <div class="text-end edit-icon-wrap">
+
+                    <i class="fa fa-trash-can icon-trash icon-trash-color js-click-trash" aria-hidden="true">
+                        <a href="{% url 'msg_delete' msg.id %}" type="button" class="btn btn-danger">メッセージ削除</a></i>
+
+
+                    <!-- 編集機能は今回は見送り<i class="fa fa-pencil icon-pencil icon-pencil-color" aria-hidden="true"></i>-->
+
+                </div>
+                {% endif %}
+            </div>
+
+
+        </div>
+
+        {% endfor %}
+    </div>
+    <div class="text-end">
+        <a href="{% url 'msg_create' sredmodel.id %}" type="button" class="btn btn-success">メッセージ作成</a>
+    </div>
+
+</div>
+<!-- <div class="form-group">
+            <label for="exampleFormControlTextarea1">コメントを入力してください</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary float-end" data-toggle="modal" data-target="#exampleModalCenter">
+            メッセージ送信
+        </button> -->
+
+
+{% endblock content %}

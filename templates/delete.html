@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="alert alert-danger position-absolute top-50 start-50 translate-middle text-end" role="alert">
+
+<form method="post" enctype="multipart/form-data">
+    <p>本当に削除しますか？</p>
+    <a href="{% url 'sred' %}" type="button" class="btn btn-light">戻る</a>
+    {% csrf_token %}
+    <input type="submit" value="掲示板を削除" class="btn btn-danger">
+</form>
+    </div>
+</div>
+{% endblock content %}

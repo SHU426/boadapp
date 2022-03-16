@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="alert alert-secondary position-absolute top-50 start-50 translate-middle text-end" role="alert">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+
+            <a href="{% url 'sred' %}" type="button" class="btn btn-light">戻る</a>
+
+            <input type="submit" value="メッセージ削除" class="btn btn-danger">
+        </form>
+    </div>
+</div>
+{% endblock content %}

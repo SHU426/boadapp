@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="alert alert-secondary position-absolute top-50 start-50 translate-middle text-end" role="alert">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{sredmodel.title}}</p>
+            <p>タイトル：<input type="text" name="title"></p>
+            <p>詳細：<input type="text" name="memo"></p>
+            <input type="hidden" name="author" value="{{ user.username }}">
+            <a href="{% url 'sred' %}" type="button" class="btn btn-light">戻る</a>
+            <input type="submit" value="掲示板を作成" class="btn btn-success">
+        </form>
+    </div>
+</div>
+{% endblock content %}
