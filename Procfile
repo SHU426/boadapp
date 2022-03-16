@@ -1,1 +1,1 @@
-web: gunicorn boardapp.wsgi --log-file -
+web: gunicorn boardapp.wsgi --log-file
