@@ -23,9 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5*3!e%puq=2m0rjf_rv0e4f()9(mo72#%!$xx(!ei62)j@rxk+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -75,17 +73,32 @@ WSGI_APPLICATION = 'boardapp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+from socket import gethostname
+hostname = gethostname()
 
-DATABASES = {
+if "DESKTOP-TIQ7SK4" in hostname:
+    DEBUG = True
+    DATABASES = {
     'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'test',
-    'USER': 'postgres',
-    'PASSWORD': 'admin',
-    'HOST': 'localhost',
-    'PORT': 5432,
-  }
-}
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'test',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': 5432,
+        }
+    }
+    ALLOWED_HOSTS = ['*'] 
+
+else:
+    # 本番環境
+    DEBUG = False 
+    import dj_database_url
+    db_from_env = dj_database_url.config()
+    DATABASES = {
+        'default': dj_database_url.config()
+    }
+    ALLOWED_HOSTS = ['*']
 
 
 # Password validation
